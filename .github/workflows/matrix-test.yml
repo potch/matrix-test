@@ -6,6 +6,7 @@ on:
 jobs:
   generate-list:
     name: "generate list"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         id: setup-node
