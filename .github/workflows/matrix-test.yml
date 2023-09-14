@@ -29,3 +29,4 @@ jobs:
     steps:
       - run: |
           echo "${{ matrix.jobs }}"
+          exit 1
