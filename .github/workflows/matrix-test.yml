@@ -1,0 +1,16 @@
+name: Matrix Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-list:
+    name: "generate list";
+    steps:
+      - uses: actions/setup-node@v3
+        id: setup-node
+        with:
+          node-version: "16.x"
+      - run: |
+          node -e "console.log('Hello World' + Math.random);"
+      
