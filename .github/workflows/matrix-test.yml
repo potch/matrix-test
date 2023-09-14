@@ -5,7 +5,7 @@ on:
 
 jobs:
   generate-list:
-    name: "generate list";
+    name: "generate list"
     steps:
       - uses: actions/setup-node@v3
         id: setup-node
@@ -13,4 +13,3 @@ jobs:
           node-version: "16.x"
       - run: |
           node -e "console.log('Hello World' + Math.random);"
-      
