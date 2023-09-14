@@ -1,16 +1,31 @@
 name: Matrix Test
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   generate-list:
     name: "generate list"
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-array.outputs.value }}
     steps:
       - uses: actions/setup-node@v3
         id: setup-node
         with:
           node-version: "16.x"
+      - id: generate-array
+        run: |
+          node -e "console.log('value=' + JSON.stringify({jobs:Array(4).fill(0).map(n => Array(4).fill(0).map(n => Math.random() * 100|0).join(' '))}))" >> $GITHUB_OUTPUT
+  use-list:
+    name: "use list"
+    needs: generate-list
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-list.outputs.matrix) }}
+    steps:
       - run: |
-          node -e "console.log('Hello World' + Math.random);"
+          echo "${{ matrix.jobs }}"
